@@ -1,42 +1,37 @@
-import React, { useContext, useState } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 import styles from './list-item.module.scss';
 import { TodoListContext } from '../../providers/todo-list.provider';
+import { Task } from '../../types/task.type';
+import clsx from 'clsx';
 
 type PropsType = {
-  taskName: string;
+  task: Task;
 };
 
 export const ListItem: React.FC<PropsType> = (props) => {
-  const [value, setValue] = useState(props.taskName);
-  const { tasks, setTasks } = useContext(TodoListContext);
+  const [value, setValue] = useState(props.task.name);
+  const { removeTask, toggleStatus } = useContext(TodoListContext);
 
-  const handleDelete = (id: string) => {
-    // let tasksArr = [...tasks];
-    // tasksArr = tasksArr.filter(task=>task.id !== id)
-    // setTasks(tasks)
-  };
+  const handleDelete = useCallback(() => {
+    removeTask(props.task.id);
+  }, [props.task, removeTask]);
 
-  const changeStatus = (id: string) => {
-    // const tasksArr = [...tasks];
-    // tasksArr.forEach(task=> {
-    //     if(task.id === id) {
-    //         task.done = true;
-    //     }
-    // })
-    // setTasks(tasks)
-  };
+  const changeStatus = useCallback(() => {
+    toggleStatus(props.task.id);
+  }, [props.task, toggleStatus]);
 
   return (
-    <div className={styles.root}>
-      <button onClick={() => changeStatus('1')}>check</button>
+    <div className={clsx(styles.root, {})}>
+      <input type="checkbox" checked={props.task.done} onChange={changeStatus} />
       <input
         className={styles.description}
         type="text"
+        disabled={props.task.done}
         placeholder="task description"
         value={value}
         onChange={(e) => setValue(e.target.value)}
       />
-      <button onClick={() => handleDelete('1')} className={styles.deleteButton}>
+      <button onClick={handleDelete} className={styles.deleteButton}>
         x
       </button>
     </div>

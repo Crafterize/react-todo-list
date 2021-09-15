@@ -1,23 +1,52 @@
 import React, { useState } from 'react';
+import { Task } from '../types/task.type';
+import { v4 as uuid } from 'uuid';
 
 type TodoListContextType = {
-  tasks: string[];
-  setTasks(task: string[]): void;
+  tasks: Task[];
+  addTask(task: Omit<Task, 'id'>): void;
+  removeTask(id: string): void;
+  toggleStatus(id: string): void;
 };
 
-const initialdata: TodoListContextType = {
-  tasks: [],
-  setTasks: () => null,
+const initialData: TodoListContextType = {
+  tasks: [
+    { done: false, id: uuid(), name: 'Eat pizza!' },
+    { done: false, id: uuid(), name: 'Sleep well' },
+  ],
+  addTask: () => null,
+  removeTask: () => null,
+  toggleStatus: () => null,
 };
 
-export const TodoListContext = React.createContext<TodoListContextType>(initialdata);
+export const TodoListContext = React.createContext<TodoListContextType>(initialData);
 
 export const TodoListProvider: React.FC = (props) => {
-  const [tasks, setTasks] = useState(initialdata.tasks);
+  const [tasks, setTasks] = useState<Task[]>([...initialData.tasks]);
+
+  const addTask = (task: Omit<Task, 'id'>) => {
+    setTasks([...tasks, { ...task, id: uuid() }]);
+  };
+
+  const removeTask = (id: string) => {
+    setTasks(tasks.filter((x) => x.id !== id));
+  };
+
+  const toggleStatus = (id: string) => {
+    const updatedTasks = tasks.map((x) => {
+      if (x.id !== id) return x;
+      return { ...x, done: !x.done };
+    });
+    setTasks(updatedTasks);
+  };
+
+  console.log(tasks);
 
   const values: TodoListContextType = {
     tasks,
-    setTasks,
+    addTask,
+    removeTask,
+    toggleStatus,
   };
 
   return <TodoListContext.Provider value={values}>{props.children}</TodoListContext.Provider>;

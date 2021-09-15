@@ -1,21 +1,24 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useRef } from 'react';
 import { TodoListContext } from '../../providers/todo-list.provider';
 
-export const AddTask: React.FC = (props) => {
-  const [task, setTask] = useState('');
-  const { tasks, setTasks } = useContext(TodoListContext);
+export const AddTask: React.FC = () => {
+  const input = useRef<HTMLInputElement>(null);
+  const { addTask } = useContext(TodoListContext);
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    let tasksList = [...tasks];
-    tasksList = [...tasksList, task];
-    setTasks(tasksList);
-    setTask('');
+    if (input.current?.value) {
+      addTask({
+        name: input.current.value,
+        done: false,
+      });
+      input.current.value = '';
+    }
   };
 
   return (
-    <form onSubmit={(e) => handleSubmit(e)}>
-      <input type="text" placeholder="add task" value={task} onChange={(e) => setTask(e.target.value)} />
+    <form onSubmit={handleSubmit}>
+      <input ref={input} type="text" placeholder="add task" />
       <button type="submit">Add</button>
     </form>
   );
