@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import styles from './list-item.module.scss';
 
-export const ListItem: React.FC = (props) => {
-  const [value, setValue] = useState('');
+type PropsType = {
+  taskName: string;
+};
+
+export const ListItem: React.FC<PropsType> = (props) => {
+  const [value, setValue] = useState(props.taskName);
 
   return (
     <div className={styles.root}>

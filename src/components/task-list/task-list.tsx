@@ -1,6 +1,15 @@
-import React from 'react';
-import { ListItem } from "../list-item";
+import React, { useContext } from 'react';
+import { TodoListContext } from '../../providers/todo-list.provider';
+import { ListItem } from '../list-item';
 
-export const TaskList: React.FC = (props) => (
-    <ListItem />
-);
+export const TaskList: React.FC = (props) => {
+  const { tasks } = useContext(TodoListContext);
+
+  return (
+    <div>
+      {tasks.map((task) => (
+        <ListItem key={task} taskName={task} />
+      ))}
+    </div>
+  );
+};
