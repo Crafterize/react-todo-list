@@ -8,11 +8,13 @@ export const App: React.FC = () => {
   return (
     <TodoListProvider>
       <div className="App">
-        <Header />
-        <AddTask />
-        <main>
-          <TaskList />
-        </main>
+        <div className="container">
+          <Header />
+          <AddTask />
+          <main>
+            <TaskList />
+          </main>
+        </div>
       </div>
     </TodoListProvider>
   );

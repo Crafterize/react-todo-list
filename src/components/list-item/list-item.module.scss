@@ -9,7 +9,9 @@
   }
 
   &.done{
-    text-decoration: line-through;
+    input{
+      text-decoration: line-through;
+    }
   }
 }
 

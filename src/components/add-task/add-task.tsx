@@ -1,5 +1,6 @@
 import React, { useContext, useRef } from 'react';
 import { TodoListContext } from '../../providers/todo-list.provider';
+import styles from './add-task.module.scss';
 
 export const AddTask: React.FC = () => {
   const input = useRef<HTMLInputElement>(null);
@@ -17,7 +18,7 @@ export const AddTask: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className={styles.root}>
       <input ref={input} type="text" placeholder="add task" />
       <button type="submit">Add</button>
     </form>

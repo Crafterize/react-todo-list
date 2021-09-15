@@ -13,6 +13,8 @@ const initialData: TodoListContextType = {
   tasks: [
     { done: false, id: uuid(), name: 'Eat pizza!' },
     { done: false, id: uuid(), name: 'Sleep well' },
+    { done: true, id: uuid(), name: 'Play more games' },
+    { done: true, id: uuid(), name: 'Go for a walk' },
   ],
   addTask: () => null,
   removeTask: () => null,
@@ -39,8 +41,6 @@ export const TodoListProvider: React.FC = (props) => {
     });
     setTasks(updatedTasks);
   };
-
-  console.log(tasks);
 
   const values: TodoListContextType = {
     tasks,

@@ -21,7 +21,7 @@ export const ListItem: React.FC<PropsType> = (props) => {
   }, [props.task, toggleStatus]);
 
   return (
-    <div className={clsx(styles.root, {})}>
+    <div className={clsx(styles.root, { [styles.done]: props.task.done })}>
       <input type="checkbox" checked={props.task.done} onChange={changeStatus} />
       <input
         className={styles.description}
@@ -31,9 +31,11 @@ export const ListItem: React.FC<PropsType> = (props) => {
         value={value}
         onChange={(e) => setValue(e.target.value)}
       />
-      <button onClick={handleDelete} className={styles.deleteButton}>
-        x
-      </button>
+      {!props.task.done && (
+        <button onClick={handleDelete} className={styles.deleteButton}>
+          x
+        </button>
+      )}
     </div>
   );
 };
