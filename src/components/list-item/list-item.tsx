@@ -33,7 +33,7 @@ export const ListItem: React.FC<PropsType> = (props) => {
       />
       {!props.task.done && (
         <button onClick={handleDelete} className={styles.deleteButton}>
-          x
+          remove
         </button>
       )}
     </div>
