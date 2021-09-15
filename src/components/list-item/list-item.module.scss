@@ -1,3 +1,29 @@
 .root {
   display: flex;
+  align-items: center;
+  border-radius: 6px;
+  box-shadow: 2px 4px 9px 1px #333333;
+  padding: 8px;
+  & + & {
+    margin-top: 12px;
+  }
+}
+
+.description {
+  border: none;
+  outline: none;
+  font-size: 16px;
+  padding: 8px;
+  flex-grow: 1;
+}
+
+.deleteButton {
+  display: block;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: 2px solid #aaa;
+  background: #ccc;
+  width: 24px;
+  height: 24px;
 }

@@ -11,8 +11,14 @@ export const ListItem: React.FC<PropsType> = (props) => {
   return (
     <div className={styles.root}>
       <button>check</button>
-      <input type="text" placeholder="task description" value={value} onChange={(e) => setValue(e.target.value)} />
-      <button>delete</button>
+      <input
+        className={styles.description}
+        type="text"
+        placeholder="task description"
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+      />
+      <button className={styles.deleteButton}>x</button>
     </div>
   );
 };
